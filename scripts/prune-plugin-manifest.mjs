@@ -88,27 +88,42 @@ const commands = readdirSync(join(ECC, 'commands'))
   .filter(f => f.endsWith('.md') && !CUT_COMMANDS.has(f))
   .map(f => `./commands/${f}`).sort();
 
-// warn on cut-list entries that no longer exist upstream
+// warn on cut-list entries that no longer exist upstream (in active OR parked dir)
 const allSkills = new Set(readdirSync(join(ECC, 'skills')));
 const allCmds = new Set(readdirSync(join(ECC, 'commands')));
-for (const s of CUT_SKILLS) if (!allSkills.has(s)) console.log(`WARN cut skill missing upstream: ${s}`);
+const parked = p => existsSync(join(ECC, p));
+for (const s of CUT_SKILLS) if (!allSkills.has(s) && !parked(`skills-disabled/${s}`)) console.log(`WARN cut skill missing upstream: ${s}`);
 for (const c of CUT_COMMANDS) if (!allCmds.has(c)) console.log(`WARN cut command missing upstream: ${c}`);
 
 const manifest = JSON.parse(readFileSync(join(ECC, '.claude-plugin/plugin.json'), 'utf8'));
-manifest.skills = skills;
+// skills: MUST stay the convention dir. An explicit per-skill entry list broke
+// skill loading entirely (fresh session lost ALL ecc skills, kept ones too).
+// commands: explicit file list DOES filter — verified in a fresh session.
+manifest.skills = ['./skills/'];
 manifest.commands = commands;
 writeFileSync(join(ECC, '.claude-plugin/plugin.json'), JSON.stringify(manifest, null, 2) + '\n');
 
-// agents: auto-discovered from agents/ — move cut ones out
+// skills + agents are auto-discovered from skills/ and agents/ by convention —
+// the manifest list does NOT filter them (verified empirically: a fresh
+// session still listed cut skills). Physically park cut ones outside the
+// scanned dirs; that parking is the real filter.
+const skillsDisabled = join(ECC, 'skills-disabled');
+mkdirSync(skillsDisabled, { recursive: true });
+let movedSkills = 0;
+for (const s of CUT_SKILLS) {
+  const src = join(ECC, 'skills', s);
+  if (existsSync(src)) { renameSync(src, join(skillsDisabled, s)); movedSkills++; }
+}
+
 const disabledDir = join(ECC, 'agents-disabled');
 mkdirSync(disabledDir, { recursive: true });
 let moved = 0;
 for (const f of CUT_AGENTS) {
   const src = join(ECC, 'agents', f);
   if (existsSync(src)) { renameSync(src, join(disabledDir, f)); moved++; }
-  else console.log(`WARN cut agent missing: ${f}`);
+  else if (!parked(`agents-disabled/${f}`)) console.log(`WARN cut agent missing: ${f}`);
 }
 
-console.log(`skills kept: ${skills.length}/${allSkills.size}`);
+console.log(`skills kept: ${skills.length}/${allSkills.size} (moved ${movedSkills} to skills-disabled/)`);
 console.log(`commands kept: ${commands.length}`);
 console.log(`agents moved to agents-disabled/: ${moved}`);
