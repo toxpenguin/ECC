@@ -64,6 +64,8 @@
     "./commands/orch-change-feature.md",
     "./commands/orch-fix-defect.md",
     "./commands/orch-refine-code.md",
+    "./commands/orch-review.md",
+    "./commands/plan-canvas.md",
     "./commands/plan-prd.md",
     "./commands/plan.md",
     "./commands/pr.md",
