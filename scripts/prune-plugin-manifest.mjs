@@ -27,12 +27,12 @@ const CUT_SKILLS = new Set([
   'netmiko-ssh-automation','network-bgp-diagnostics','network-config-validation',
   'network-interface-health',
   // crypto / trading
-  'ito-basket-compare','ito-data-atlas-agent','ito-market-intelligence','ito-trade-planner',
-  'prediction-market-oracle-research','prediction-market-risk-review','defi-amm-security',
-  'evm-token-decimals','llm-trading-agent-security','nodejs-keccak256','agent-payment-x402',
+  'ito-baskets','prediction-market-oracle-research','prediction-market-risk-review',
+  'defi-amm-security','evm-token-decimals','llm-trading-agent-security','nodejs-keccak256',
+  'agent-payment-x402',
   // media / video
   'blender-motion-state-inspection','fal-ai-media','manim-video','remotion-video-creation',
-  'video-editing','videodb','frontend-slides',
+  'video-editing','videodb','frontend-slides','tasteforge-video',
   // scientific
   'scientific-db-pubmed-database','scientific-db-uspto-database','scientific-pkg-gget',
   'scientific-thinking-literature-review','scientific-thinking-scholar-evaluation',
@@ -53,12 +53,15 @@ const CUT_SKILLS = new Set([
   'foundation-models-on-device',
   // ML (no evidence of use)
   'pytorch-patterns','mle-workflow','ml-adoption-playbook','recsys-pipeline-architect',
+  'ito-inference','ito-training',
   // niche / vendor / fringe
   'exa-search','jira-integration','clickhouse-io','flox-environments','uncloud',
   'canary-watch','dashboard-builder','data-scraper-agent','data-throughput-accelerator',
   'click-path-audit','product-lens','product-capability','enterprise-agent-ops',
   'nanoclaw-repl','openclaw-persona-forge','ralphinho-rfc-pipeline','deep-research',
-  'api-connector-builder',
+  'api-connector-builder','nasiko-control-plane','terminal-opener',
+  // duplicates of skills already kept
+  'council-multi-model','dev-team','living-docs-governance',
 ]);
 
 const CUT_COMMANDS = new Set([
@@ -78,7 +81,7 @@ const CUT_AGENTS = new Set([
   'healthcare-reviewer.md','homelab-architect.md','java-build-resolver.md',
   'java-reviewer.md','marketing-agent.md','mle-reviewer.md','network-architect.md',
   'network-config-reviewer.md','network-troubleshooter.md','php-reviewer.md',
-  'pytorch-build-resolver.md','seo-specialist.md',
+  'pytorch-build-resolver.md','rag-pipeline-reviewer.md','seo-specialist.md',
 ]);
 
 const skills = readdirSync(join(ECC, 'skills'), { withFileTypes: true })
