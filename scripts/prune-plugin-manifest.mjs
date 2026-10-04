@@ -33,6 +33,7 @@ const CUT_SKILLS = new Set([
   // media / video
   'blender-motion-state-inspection','fal-ai-media','manim-video','remotion-video-creation',
   'video-editing','videodb','frontend-slides','tasteforge-video',
+  'taste-application','taste-distillation',
   // scientific
   'scientific-db-pubmed-database','scientific-db-uspto-database','scientific-pkg-gget',
   'scientific-thinking-literature-review','scientific-thinking-scholar-evaluation',
@@ -50,7 +51,7 @@ const CUT_SKILLS = new Set([
   'quarkus-verification','springboot-patterns','springboot-security','springboot-tdd',
   'springboot-verification','tinystruct-patterns','cpp-coding-standards','cpp-testing',
   'dart-flutter-patterns','flutter-dart-code-review','windows-desktop-e2e','hermes-imports',
-  'foundation-models-on-device',
+  'foundation-models-on-device','rails-patterns',
   // ML (no evidence of use)
   'pytorch-patterns','mle-workflow','ml-adoption-playbook','recsys-pipeline-architect',
   'ito-inference','ito-training',
@@ -60,6 +61,9 @@ const CUT_SKILLS = new Set([
   'click-path-audit','product-lens','product-capability','enterprise-agent-ops',
   'nanoclaw-repl','openclaw-persona-forge','ralphinho-rfc-pipeline','deep-research',
   'api-connector-builder','nasiko-control-plane','terminal-opener',
+  // business / contract ops
+  'master-agreement-generator','esign-field-placement','operator-approval-loop',
+  'counterparty-channel-discipline',
   // duplicates of skills already kept
   'council-multi-model','dev-team','living-docs-governance',
 ]);
